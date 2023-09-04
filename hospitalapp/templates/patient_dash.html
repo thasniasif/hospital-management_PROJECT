@@ -1,0 +1,172 @@
+{% extends 'base_admin.html'%}
+{% block title %}Patient Home{% endblock %}
+{% load static %}
+{% block style %}
+#left_top_div{
+background-color:#3BB78F;
+<!--width:100px;-->
+border:solid 1px;
+text-align:center;
+border-bottom:none;
+}
+#img1 {
+border-radius: 50%;
+border:solid 3px yellow;
+}
+
+.left_bot_div{
+
+height:330px;
+
+background-color:#4ebe9a;
+border-top:none;
+}
+.anchor{
+color:black;
+}
+a:link{
+color:black;
+text-decoration: none;
+
+}
+.anchor:hover {
+color:rgb(56,56,56);
+
+}
+table,th,td{
+  border:1px solid black;
+    border-collapse: collapse;
+text-align:center;
+}
+
+
+a:visited {
+  text-decoration: none;
+}
+.right_div{
+border:solid 1px;
+
+
+}
+
+
+.div1{
+padding-top:80px;
+}
+#hc{
+color:black;
+font-size:60px;
+text-align:center;
+<!--padding-top:100px;-->
+}
+.btn1{
+margin-left:500px;
+}
+
+
+{% endblock %}
+{% block body %}
+{% if w %}
+<div class=" div1 container-fluid mt-5">
+<h1 id="hc">Hello, Doctor </h1>
+    <p style="text-align:center;font-size:18px;">Your Account is not approved till now</p>
+      <p style="text-align:center;font-size:18px;padding-top:10px;">Our team is checking your profile</p>
+</div>
+<p style="text-align:center;font-size:15px;">Soon your Account will be confirmed!!!</p>
+<hr>
+    <a href="admin_signup"> <button type="button" class="btn btn-primary btn1">Logout for Now</button></a>
+{% endif %}
+{% if nw %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class=" left_div col-2" >
+                  <!--    1st row 1st col-->
+                  <div class=" row" id="left_top_div">
+                          <div class="col mt-5 mb-3">
+
+                            <img id="img1" src="{% static 'images/admin1.jpg'%}" alt="img1" height="80px" width="80px;">
+                            <h5>PATIENT</h5>
+                            {% for i in s %}
+                            <h1>{{i.first_name}}</h1>
+                            {% endfor %}
+
+                          </div>
+                  </div>
+
+
+                <div class="left_bot_div row">
+                  <div class="col mt-4 mb-4" >
+                  <h5><a class="anchor" href="patient_dashboard" ><i class="fa fa-dashboard"></i> Dashboard</a></h5>
+
+                  <a class="anchor" href="doctor_patient"> <h5><i class="fa fa-wheelchair"></i> Patient</h5></a>
+                  <a class="anchor" href="doctor_appointment"> <h5><i class="fa fa-calendar"> </i> Appointments</h5></a>
+                  </div>
+
+                </div>
+
+    </div>
+    <div class=" right_div col " >
+        <nav class="navbar  navbar-expand-lg navbar-light fixed-top "  style="background-color:#002D62; height:50px;">
+
+        <div class="container-fluid">
+          <a class="navbar-brand" href="home" style="color:white;">Hospital Management System</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+            <!-- <span class="navbar-text">
+              Navbar text with an inline element
+            </span> -->
+
+                <ul class="d-flex">
+                    <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+
+                <a class="nav-link active" style="color:white;" aria-current="page" href="logout"><b>Logout</b></a>
+
+              </li>
+
+<!--                <li class="nav-item">-->
+
+<!--                <a class="nav-link active" href="#"><b>Login</b></a>-->
+
+<!--              </li><br>-->
+
+
+
+            </ul>
+                         </div>
+                </ul>
+
+                    </div>
+</nav>
+        {% if dash %}
+        <div class="row mx-2 mt-5">
+<!--            doctor col-->
+            <div class="col">
+                        <div class="card mt-5" style="width: 18rem;background-color:red;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Doctor Name</h5>
+                                    <p class="card-text"></p>
+
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-5 " style="margin-right:80px;">
+                                <i class=" i_card fa fa-calendar" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+
+        {% endif %}
+
+
+{% endif %}
+
+{% endblock %}

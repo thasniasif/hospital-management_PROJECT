@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+{% block title %}Contact{% endblock %}
+{% block style %}
+#div1{
+bottom-border:solid 1px;
+height:200px;
+background-color:#A3C1AD;
+}
+#hc{
+color:black;
+font-size:40px;
+text-align:center;
+<!--padding-top:100px;-->
+}
+.div1{
+padding-top:60px;
+}
+.pstyle:hover{
+box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+
+}
+.row_1{
+padding-left:100px;
+}
+{% endblock %}
+{% block body %}
+<div class=" div1 container-fluid mt-5">
+<h1 id="hc">Contact Us</h1>
+</div>
+<div class=" row_1 row m-5">
+    <div class="col">
+        <h4><i class='fas fa-phone-square'></i> Contact</h4>
+        <p class="pstyle"><a class="text-danger" href="tel:+91 9747100240">  +9747100240</a></p>
+    </div>
+    <div class="col">
+        <h4><i class="fa fa-envelope-square" ></i> Send Email</h4>
+        <p class="pstyle"><a class="text-danger" href="mailto:abc@gmail.com">abc@gmail.com</a></p>
+    </div>
+    <div class="col">
+        <h4><i class="fa fa-address-card "></i> Office Address</h4>
+        <p class="pstyle"><a class="text-danger" href="https://goo.gl/maps/Rw27M4GWY1hChQtE9">Ernakulam,Aluva</a></p>
+    </div>
+    <div class="col">
+        <h4><i class="fa fa-address-card "></i> Office Time</h4>
+        <p class=" pstyle text-danger">10AM to 5PM</p>
+    </div>
+
+</div>
+{% endblock %}

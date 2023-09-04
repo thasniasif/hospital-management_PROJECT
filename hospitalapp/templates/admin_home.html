@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block title %}Admin Home{% endblock %}
+{% block style %}
+
+.div1{
+padding-top:80px;
+}
+#hc{
+color:black;
+font-size:60px;
+text-align:center;
+<!--padding-top:100px;-->
+}
+.btn1{
+margin-left:600px;
+}
+
+{% endblock %}
+{% block body %}
+<div class=" div1 container-fluid mt-5">
+<h1 id="hc">Hello, Admin</h1>
+    <p style="text-align:center;font-size:30px;">Welcome to Hospital Management System!!!</p>
+</div>
+<div style="padding-top:80px;">
+    <p style="text-align:center;font-size:15px;">You can access various features after login/SignUp</p>
+    <a href="admin_signup"> <button type="button" class="btn btn-primary btn1">SignUp</button></a>
+    <a href="admin_login"> <button type="button" class="btn btn-primary">Login</button></a>
+</div>
+
+{% endblock %}
