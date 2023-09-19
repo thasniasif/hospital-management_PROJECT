@@ -82,7 +82,7 @@ margin-left:500px;
 </div>
 <p style="text-align:center;font-size:15px;">Soon your Account will be confirmed!!!</p>
 <hr>
-    <a href="admin_signup"> <button type="button" class="btn btn-primary btn1">Logout for Now</button></a>
+    <a href="home"> <button type="button" class="btn btn-primary btn1">Logout for Now</button></a>
 {% endif %}
 {% if nw %}
 
@@ -132,7 +132,7 @@ margin-left:500px;
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
 
-                <a class="nav-link active" style="color:white;" aria-current="page" href="logout"><b>Logout</b></a>
+                <a class="nav-link active" style="color:white;" aria-current="page" href="doc_logout"><b>Logout</b></a>
 
               </li>
 
@@ -162,7 +162,7 @@ margin-left:500px;
                         <div class="row">
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">{{c}}</h5>
+                                    <h5 class="card-title">{{appoint_c}}</h5>
                                     <p class="card-text">Appointments For You</p>
 
                                   </div>
@@ -183,7 +183,7 @@ margin-left:500px;
                         <div class="row">
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">1</h5>
+                                    <h5 class="card-title">{{pat_c}}</h5>
                                     <p class="card-text">Patient Under You</p>
 
                                   </div>
@@ -235,13 +235,17 @@ margin-left:500px;
                             <th>Date</th>
                         </tr>
 
-                        {% for i in s2 %}
+                        {% for i in a %}
                         <tr>
 
-                            <td>{{i.first_name}}</td>
-                            <td>{{i.specialisation}}</td>
-                            <td>{{i.mobile}}</td>
+                            <td>{{i.patient_name}}</td>
                             <td></td>
+                            <td>{{i.description}}</td>
+                            {% for j in p %}
+                            <td>{{j.mobile}}</td>
+                            <td>{{j.address}}</td>
+                            {% endfor %}
+                            <td>{{i.join_date}}</td>
 
                         </tr>
                         {% endfor %}
@@ -268,7 +272,26 @@ margin-left:500px;
                         <div class="row">
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">Your Patient Record</h5>
+                                    <h5 class="card-title">Your IP Patient Record</h5>
+
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-3 " style="margin-right:80px;">
+                               <i class=" i_card fas fa-user-alt" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+        </a>
+    </div>
+<div class="col">
+        <a href="your_op_patient_record">
+        <div class=" doc_card card mt-5" style="width: 18rem;background-color:#E23D28;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Your OP Patient Record</h5>
 
                                   </div>
                             </div>
@@ -282,7 +305,7 @@ margin-left:500px;
     </div>
 
     <div class="col">
-        <a href="doctor_signup_admin">
+        <a href="y_d_p">
         <div class=" doc_card card mt-5" style="width: 18rem;background-color:#29AB87;height:130px;">
 
                         <div class="row">
@@ -310,7 +333,44 @@ margin-left:500px;
 {% if y_p_r %}
   <div class="container" style="padding-top:100px;">
           <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
-              <h4 style="color:white;padding-top:10px;">Your Total Patient List</h4>
+              <h4 style="color:white;padding-top:10px;">Your IP Patient List</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Name</th>
+                  <th>Profile</th>
+                  <th>Mobile</th>
+                  <th width="200px">Address</th>
+                  <th>Symptoms</th>
+                  <th>Discharge</th>
+
+              </tr>
+
+              {% for i in p1 %}
+              <tr>
+                  <td>{{i.first_name}} {{i.last_name}}</td>
+                  <td></td>
+                  <td>{{i.mobile}}</td>
+                  <td>{{i.address}}</td>
+                  <td>{{i.symptom}}</td>
+                  {% endfor %}
+                  {% for i in a %}
+                    <td><a href="doc_discharge{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
+              {% endfor %}
+              </tr>
+
+
+          </table>
+
+      </div>
+
+
+
+{% endif %}
+      {% if y_o_p_r %}
+  <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Your OP Patient List</h4>
           </div>
           <table style="width:100%">
               <tr>
@@ -340,10 +400,11 @@ margin-left:500px;
 
 
 {% endif %}
+
       {% if app %}
       <div class="row mt-5 mx-5">
     <div class="col">
-        <a href="doctor_record">
+        <a href="doctor_v_y_a">
         <div class=" doc_card card mt-5" style="width: 18rem;background-color:#6699CC;height:130px;">
 
                         <div class="row">
@@ -363,7 +424,7 @@ margin-left:500px;
     </div>
 
     <div class="col">
-        <a href="doctor_signup_admin">
+        <a href="delete_appoint">
         <div class=" doc_card card mt-5" style="width: 18rem;background-color:#29AB87;height:130px;">
 
                         <div class="row">
@@ -544,7 +605,7 @@ margin-left:500px;
                   <th>Name</th>
                   <th>Mobile</th>
               </tr>
-                        {% for i in sgen %}
+                        {% for i in s %}
                         <tr>
                            <td>{{i.first_name}}{{i.last_name}}</td>
                             <td>{{i.mobile}}</td>
@@ -576,6 +637,112 @@ margin-left:500px;
                 </div>
 
                 </div>
+      </div>
+
+
+      {% endif %}
+      {% if v_y_a %}
+       <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Your Appointments</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Patient Name</th>
+                  <th>Profile</th>
+                  <th>Description</th>
+                  <th>Mobile</th>
+                  <th>Address</th>
+                  <th>Appointment Date</th>
+
+              </tr>
+
+              {% for i in a %}
+              <tr>
+                  <td>{{i.patient_name}}</td>
+                  <td></td>
+                  <td>{{i.description}}</td>
+                  {% for j in p %}
+                  <td>{{j.mobile}}</td>
+                  <td>{{j.address}}</td>
+                  {% endfor %}
+                  <td>{{i.join_date}}</td>
+
+              </tr>
+              {% endfor %}
+
+          </table>
+
+      </div>
+
+
+
+
+      {% endif %}
+      {% if delete_a %}
+      <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Your Appointments</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Patient Name</th>
+                  <th>Profile</th>
+                  <th>Description</th>
+                    <th>IP</th>
+                  <th>OP(Delete)</th>
+
+              </tr>
+
+              {% for i in a %}
+              <tr>
+                  <td>{{i.patient_name}}</td>
+                  <td></td>
+
+
+                  <td>{{i.description}}</td>
+                  <td><a href="IP{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
+                  <td><a href="appoint_delete{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
+              </tr>
+              {% endfor %}
+
+          </table>
+
+      </div>
+
+
+      {% endif %}
+      {% if y_d_p %}
+      <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Your Discharged Patient List</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Patient Name</th>
+                  <th>Admit Date</th>
+                  <th>Release Date</th>
+                    <th>Mobile</th>
+                  <th>Symptoms</th>
+                    <th>Address</th>
+              </tr>
+
+              {% for i in dis %}
+              <tr>
+                  {% for j in pat_rec %}
+                  <td>{{j.first_name}} {{j.last_name}}</td>
+                   <td>{{j.join_date}}</td>
+                  <td>{{i.release_date}}</td>
+                    <td>{{j.mobile}}</td>
+                  <td>{{j.symptom}}</td>
+                    <td>{{j.address}}</td>
+                {% endfor %}
+
+              </tr>
+              {% endfor %}
+
+          </table>
+
       </div>
 
 

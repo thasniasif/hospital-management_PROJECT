@@ -1,5 +1,32 @@
 {% extends 'base.html' %}
 {% block title %}SIGNUP{% endblock %}
+{% load static %}
+{% block script %}
+function validate(){
+
+    var pwd=document.getElementById("password").value;
+    var user=document.getElementById("username").value;
+    var user_pat=/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/;
+    var pwd_pat=/(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[A-Z]).{4,}/;
+    if(pwd_pat.test(pwd)==false){
+        $('#pass_span').html('Password must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 digit 1spl char[!@#$%^&*]');
+<!--        alert("Password must contain  min 4 char, atleast   1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");-->
+        return false;
+        }
+    else if(user_pat.test(user)==false){
+        $('#error_span').html('username must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 digit ');
+<!--        alert("Password must contain  min 4 char, atleast   1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");-->
+        return false;
+        }
+    else{
+
+    return true;
+    }
+
+
+}
+
+{% endblock %}
 {% block style %}
 #hc{
 color:black;
@@ -16,7 +43,7 @@ height:55px;
 #main_div{
 height:400px;
 border:solid 1px;
-width:50%;
+width:60%;
 margin-left:300px;
 margin-top:130px;
 }
@@ -29,20 +56,20 @@ margin-top:130px;
     <h4 id="hc">Doctor Registeration</h4>
     </div>
     <div class="container mt-4" style="margin-left:50px;">
-        <form method="POST" enctype="multipart/form-data">
+        <form action="doctor_signup" method="POST" id="myform" enctype="multipart/form-data" onsubmit="return validate()">
             {% csrf_token %}
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="First Name" id="fname" name="fname"><br>
+                <input type="text" placeholder="First Name" id="fname" name="fname" autocomplete="off" required ><br>
             </div>
             <div class="col">
-                 <input type="text" placeholder="last Name" id="lname" name="lname">
+                 <input type="text" placeholder="last Name" id="lname" name="lname" autocomplete="off"required >
             </div>
          </div>
             <div class="row mt-3">
             <div class="col">
 <!--                <input type="text" placeholder="" ><br>-->
-                <select id="special" name="special"  style="width:50%;" >
+                <select id="special" name="special"  style="width:50%;" required>
                     <option name="special" value="special">Specialisation-</option>
                 <option name="special" value="cardiology">Cardiologist</option>
                 <option name="special" value="neurology">Neurologist</option>
@@ -52,21 +79,30 @@ margin-top:130px;
               </select><br>
             </div>
             <div class="col">
-                 <input type="text" placeholder="Mobile" id="mobile" name="mobile">
+                 <input type="text" placeholder="Mobile" id="mobile" name="mobile" required autocomplete="off"pattern="[0-9]{10}">
             </div>
          </div>
 
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="User Name" id="uname" name="uname"><br>
+                <input type="text" placeholder="User Name" id="username" name="username" required autocomplete="off"><br>
             </div>
             <div class="col">
-                 <input type="password" placeholder="Password" id="password" name="password">
+                 <input type="password" placeholder="Password" id="password" name="password"  required autocomplete="off">
             </div>
         </div>
+            <div class="row">
+                <div class="col">
+                <span id="error_span" style="color:red;"></span>
+                </div>
+                <div class="col">
+                <span id="pass_span" style="color:red;"></span>
+                </div>
+
+            </div>
             <div class="row mt-3">
-            <div class="col">
-                <input type="text" placeholder="Address" id="address" name="address"><br>
+            <div class="col mt-3">
+                <input type="text" placeholder="Address" id="address" name="address" required autocomplete="off"><br>
             </div>
             <div class="col">
                 <label>Profile Picture</label>
@@ -74,7 +110,9 @@ margin-top:130px;
             </div>
          </div>
             <div class="row mt-4">
-                <button type="submit" class="btn btn-primary" style="width:100px;margin-left:250px;">Apply</button>
+                <div class="col">
+                <button type="submit" id="signup_btn"  class="btn btn-primary" style="width:100px;margin-left:240px;">Apply</button>
+                    </div>
 
             </div>
 
@@ -84,11 +122,13 @@ margin-top:130px;
     </div>
 
 <div style="text-align:center;padding-top:20px;">
-    <h6>Already have an account?<a href="#">Login Here</a> </h6>
+    <h6>Already have an account?<a href="doctor_login">Login Here</a> </h6>
 </div>
 
 
 
 
 </div>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+
 {% endblock %}

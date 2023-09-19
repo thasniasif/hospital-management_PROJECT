@@ -1,5 +1,40 @@
 {% extends 'base.html' %}
 {% block title %}SIGNUP{% endblock %}
+{% block script %}
+function validate(){
+
+    var pwd=document.getElementById("password").value;
+    var pwd_pat=/(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[A-Z]).{4,}/;
+    var user=document.getElementById("username").value;
+    var user_pat=/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/;
+    if(pwd_pat.test(pwd)==false){
+        alert("Password must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");
+        return false;
+    }
+    if(user_pat.test(user)==false){
+        $('#error_span').html('username must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 digit ');
+<!--        alert("Password must contain  min 4 char, atleast   1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");-->
+        return false;
+        }
+    else{
+    alert("Registered Successfully!!")
+    return true;
+    }
+
+}
+$(function(){
+var avail=[
+{% for i in s %}
+"{{i.symptom}}",
+{% endfor %}
+];
+$(#symptom).autocomplete({
+source: avail
+});
+});
+
+}
+{% endblock %}
 {% block style %}
 #hc{
 color:black;
@@ -29,37 +64,46 @@ margin-top:130px;
     <h4 id="hc">Patient Registeration</h4>
     </div>
     <div class="container mt-4" style="margin-left:50px;">
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" onsubmit="return validate()">
             {% csrf_token %}
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="First Name" id="fname" name="fname"><br>
+                <input type="text" placeholder="First Name" id="fname" name="fname"   autocomplete="off" required><br>
             </div>
             <div class="col">
-                 <input type="text" placeholder="last Name" id="lname" name="lname">
+                 <input type="text" placeholder="last Name" id="lname" name="lname"  autocomplete="off" required>
             </div>
          </div>
             <div class="row mt-3">
 
             <div class="col">
-                 <input type="text" placeholder="Mobile" id="mobile" name="mobile">
+                 <input type="text" placeholder="Mobile" id="mobile" name="mobile" required autocomplete="off"pattern="[0-9]{10}">
             </div>
                 <div class="col">
-                 <input type="text" placeholder="Symptoms" id="symptom" name="symptom">
+                 <input type="text" placeholder="Symptoms" id="symptom" name="symptom" required>
             </div>
          </div>
 
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="User Name" id="uname" name="uname"><br>
+                <input type="text" placeholder="User Name" id="uname" name="uname" required autocomplete="off" ><br>
             </div>
             <div class="col">
-                 <input type="password" placeholder="Password" id="password" name="password">
+                 <input type="password" placeholder="Password" id="password" name="password" required autocomplete="off">
             </div>
         </div>
+            <div class="row">
+                <div class="col">
+                <span id="error_span" style="color:red;"></span>
+                </div>
+                <div class="col">
+                <span id="pass_span" style="color:red;"></span>
+                </div>
+
+            </div>
             <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="Address" id="address" name="address"><br>
+                <input type="text" placeholder="Address" id="address" name="address" required autocomplete="off"><br>
             </div>
             <div class="col">
                 <select id="doc" name="doc"  style="width:80%;" >
@@ -89,7 +133,7 @@ margin-top:130px;
     </div>
 
 <div style="text-align:center;padding-top:20px;">
-    <h6>Already have an account?<a href="#">Login Here</a> </h6>
+    <h6>Already have an account?<a href="patient_login">Login Here</a> </h6>
 </div>
 
 

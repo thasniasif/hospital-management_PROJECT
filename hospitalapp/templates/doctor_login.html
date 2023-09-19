@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% block title %}Doctor Login{% endblock %}
+
 {% block style %}
 #hc{
 color:black;
@@ -29,7 +30,7 @@ margin-top:150px;
     <h4 id="hc"> Doctor Login</h4>
     </div>
     <div class="container mt-4" style="margin-left:50px;">
-        <form method="POST">
+        <form method="POST" >
             {% csrf_token %}
 
         <div class="row mt-3">
@@ -40,7 +41,7 @@ margin-top:150px;
                  <input type="password" placeholder="Password" id="password" name="password">
             </div>
             <div class="row mt-4">
-                <button type="submit" class="btn btn-primary" style="width:100px;margin-left:250px;">Login</button>
+                <button type="submit" id="bt_login" class="btn btn-primary" style="width:100px;margin-left:250px;">Login</button>
 
             </div>
 

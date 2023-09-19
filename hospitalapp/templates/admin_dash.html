@@ -2,6 +2,17 @@
 {% block title %}Admin Home{% endblock %}
 {% load static %}
 {% block style %}
+.table1 {
+border:black;
+  border-collapse: collapse;
+  width: 100%;
+}
+.th1{
+background-color: #D6EEEE;
+}
+#bill_maindiv{
+ justify-content: end;
+}
 .i_card {
   background-color: white;
   border-radius: 50%;
@@ -25,7 +36,7 @@ border:solid 3px yellow;
 
 .left_bot_div{
 
-height:330px;
+height:400px;
 
 background-color:#4ebe9a;
 border-top:none;
@@ -84,7 +95,7 @@ border:solid 1px;
                   <h5><a class="anchor" href="admin_dashboard" ><i class="fa fa-dashboard"></i> Dashboard</a></h5>
                   <a class="anchor" href="admin_doctor"> <h5><i class="fa fa-user-md"></i> Doctor</h5></a>
                   <a class="anchor" href="admin_patient"> <h5><i class="fa fa-wheelchair"></i> Patient</h5></a>
-                  <a class="anchor" href="#"> <h5><i class="fa fa-calendar"> </i> Appointment</h5></a>
+                  <a class="anchor" href="admin_appoint"> <h5><i class="fa fa-calendar"> </i> Appointment</h5></a>
                   </div>
 
                 </div>
@@ -138,9 +149,9 @@ border:solid 1px;
                         <div class="row">
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">{{c}}</h5>
+                                    <h5 class="card-title">{{doc_c}}</h5>
                                     <p class="card-text">Total Doctors</p>
-                                    <p style="font-size:12px;padding-left:15px;">Approval Required:{{count}}</p>
+                                    <p style="font-size:12px;padding-left:15px;">Approval Required:{{app_count}}</p>
                                   </div>
                             </div>
                             <div class="col-1 mt-5 " style="margin-right:80px;">
@@ -159,9 +170,9 @@ border:solid 1px;
                         <div class="row">
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">1</h5>
+                                    <h5 class="card-title">{{pat_c}}</h5>
                                     <p class="card-text">Total Patients</p>
-                                    <p style="font-size:12px;padding-left:15px;">Waiting to Admit:1</p>
+                                    <p style="font-size:12px;padding-left:15px;">Waiting to Admit:{{admit_c}}</p>
                                   </div>
                             </div>
                             <div class="col-1 mt-5 " style="margin-right:80px;">
@@ -179,9 +190,9 @@ border:solid 1px;
                         <div class="row">
                             <div class="col px-3">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">1</h5>
+                                    <h5 class="card-title">{{app_c}}</h5>
                                     <p class="card-text">Total Appointment</p>
-                                    <p style="font-size:12px;padding-left:15px;">Approval Required:1</p>
+                                    <p style="font-size:12px;padding-left:15px;">Approval Required:{{process_c}}</p>
                                   </div>
                             </div>
                             <div class="col-1 mt-5 " style="margin-right:80px;">
@@ -343,7 +354,7 @@ border:solid 1px;
 
       {% endif %}
 
-      {% if pat %}
+      {% if pat_v %}
 <div class="row mt-5">
     <div class="col">
         <a href="patient_record">
@@ -372,7 +383,7 @@ border:solid 1px;
                         <div class="row">
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">Admit Patient</h5>
+                                    <h5 class="card-title">Add new Patient</h5>
 
                                   </div>
                             </div>
@@ -423,13 +434,31 @@ border:solid 1px;
         </a>
     </div>
 
+<div class="col">
+        <a href="admit_patient2">
+        <div class="doc_card card mt-5" style="width: 18rem;background-color:#E23D28">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Admit Patient</h5>
+
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-3 " style="margin-right:80px;">
+                                <i class=" i_card fa fa-user-md" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                  </div>
+        </a>
+    </div>
 
 
 </div>
 
 
       {% endif %}
-
 
       {% if approve_doctor %}
       <div class="container" style="padding-top:100px;">
@@ -467,7 +496,7 @@ border:solid 1px;
       {% if approve_patient %}
       <div class="container" style="padding-top:100px;">
           <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
-              <h4 style="color:white;padding-top:10px;">Patients Waiting for Admit</h4>
+              <h4 style="color:white;padding-top:10px;">Patients Waiting for Approval</h4>
           </div>
           <table style="width:100%">
               <tr>
@@ -583,7 +612,7 @@ border:solid 1px;
 
                   <th>Discharge</th>
               </tr>
-                {% if s2 %}
+
               {% for i in s2 %}
               <tr>
                   <td>{{i.first_name}} {{i.last_name}}</td>
@@ -591,20 +620,19 @@ border:solid 1px;
                   <td>{{i.mobile}}</td>
                   <td>{{i.address}}</td>
                   <td>{{i.symptom}}</td>
-
+                {% endfor %}
+                  {% for i in a %}
                   <td><a href="discharge{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
-              </tr>
               {% endfor %}
-                {% endif %}
+              </tr>
+
+
           </table>
 
       </div>
 
       {% endif %}
-      {% if discharge %}
 
-
-      {% endif %}
 
       {% if doctor_special  %}
         <div class="container" style="padding-top:100px;">
@@ -726,6 +754,404 @@ border:solid 1px;
 
 
       {% endif %}
+      {% if admin_appoint %}
+      <div class="row mt-5">
+    <div class="col">
+        <a href="admin_view_appoint">
+        <div class=" doc_card card mt-5" style="width: 18rem;background-color:#6699CC;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">View Appointment</h5>
+
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-3 " style="margin-right:80px;">
+                                <i class=" i_card fa fa-user-md" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="admin_book_appointment">
+        <div class=" doc_card card mt-5" style="width: 18rem;background-color:#29AB87;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Book Appointment</h5>
+
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-3 " style="margin-right:80px;">
+                                <i class=" i_card fas fa-user-plus" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+        </a>
+    </div>
+    <div class="col">
+        <a  href="admin_approve_appoint">
+        <div class=" doc_card card mt-5" style="width: 18rem;background-color:orange;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Approve Appointment </h5>
+
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-3 " style="margin-right:80px;">
+                                <i class=" i_card fa fa-user-md" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+        </a>
+    </div>
+
+
+
+
+</div>
+
+
+      {% endif %}
+{% if admin_approve_appoint %}
+      <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Appointment Approvals Required</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Doctor Name</th>
+                  <th>Patient Name</th>
+                  <th>Description</th>
+                  <th>Date</th>
+
+                  <th>Approve</th>
+                  <th>Reject</th>
+              </tr>
+
+              {% for i in a %}
+              <tr>
+                  <td>{{i.doctor_name}}</td>
+
+                  <td>{{i.patient_name}}</td>
+
+                  <td>{{i.description}}</td>
+                  <td>{{i.join_date}}</td>
+                  <td><a href="app_approve{{i.id}}"> <button style="background-color:green;margin-left:20px;"><i class="fa fa-refresh" ></i></button></a></td>
+                  <td><a href="app_reject{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
+              </tr>
+              {% endfor %}
+
+          </table>
+
+      </div>
+
+      {% endif %}
+      {% if book_appoint %}
+        <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Book Appointment details</h4>
+          </div>
+            <div style="border:solid 1px;">
+                <form method="POST">
+                    {% csrf_token %}
+            <div class="row mt-5 px-5">
+                <div class="col">
+                <textarea rows="8" cols="110" name="description" placeholder="Description"></textarea>
+                </div>
+            </div>
+             <div class="row mt-3 px-5">
+            <div class="col">
+<!--                <input type="text" placeholder="" ><br>-->
+                <select id="special" name="special"  style="width:50%;" >
+                    <option name="special" value="special">Doctor Name and Department</option>
+                    {% for i in d %}
+                <option name="special" value="{{i.user_name}}">{{i.first_name}} {{i.last_name}}({{i.specialisation}})</option>
+
+                {% endfor %}
+              </select><br>
+            </div>
+                  <div class="row mt-3 ">
+            <div class="col">
+<!--                <input type="text" placeholder="" ><br>-->
+                <select id="p_special" name="p_special"  style="width:50%;" >
+                    <option name="p_special" value="p_special">Patient Name and Description</option>
+                    {% for i in p %}
+                <option name="p_special" value="{{i.user_name}}">{{i.first_name}} {{i.last_name}}({{i.symptom}})</option>
+
+                {% endfor %}
+              </select><br>
+            </div>
+            <div class="row mt-4 mb-3">
+                <button type="submit" class="btn btn-primary" style="width:100px;margin-left:250px;">Book</button>
+
+            </div>
+            </div>
+                    </form>
+        </div>
+
+
+        {% endif %}
+            {% if admin_view_appoint %}
+<div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">View Appointments</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Doctor Name</th>
+                  <th>Description</th>
+                  <th>Date</th>
+<!--                  <th width="200px">Address</th>-->
+                  <th>Status</th>
+
+              </tr>
+
+              {% for i in a %}
+              <tr>
+                  <td>{{i.doctor_name}}</td>
+                  <td>{{i.description}}</td>
+                  <td>{{i.app_date}}</td>
+                  <td><button type="button" class="btn btn-success btn-sm">{{i.status}}</button></td>
+
+
+              </tr>
+              {% endfor %}
+
+          </table>
+
+      </div>
+
+            {% endif %}
+            {% if discharge_v %}
+<form method="POST" >
+                      {% csrf_token %}
+ <div class="container" style="padding-top:80px;padding-bottom:40px;">
+          <div class="container mx-2 " style="border:solid 1px;">
+              <div class="row">
+              <div class="col-3"><h3  style="padding-top:10px;">Hospital Management</h3></div>
+              <div class="col" id="bill_maindiv"  style="padding-left:460px;">
+
+                         <label>Admit date :</label>
+
+                            <label>{{a.join_date}}</label><br>
+                    {% for i in disc %}
+                        <label>Release date :</label>
+                            <label>{{i..release_date}}</label><br>
+                  {% endfor %}
+                        <label>Days Spent :</label>
+                            <label>{{c}}</label><br>
+
+            </div>
+              </div>
+
+        <div class="row pt-3">
+              <div class="col-4"  style="padding-top:10px;">
+                  {% for i in s2 %}
+                                <label>Patient Name :</label>
+                                    <label>{{ i.first_name}} {{ i.last_name }}</label><br>
+                                <label>Patient Mobile :</label>
+                                    <label>{{i.mobile}}</label><br>
+                                <label>Patient Address :</label>
+                                    <label>{{i.address}}</label><br>
+                {% endfor %}
+              </div>
+              <div class="col"   style="padding-left:460px;">
+                         <label>Doctor Name :</label>
+                            <label>{{doct.first_name}} {{doct.last_name}}</label><br>
+
+
+            </div>
+        </div>
+              <div class="row pt-4 px-2">
+                  <table class="table1" style="text-align:left;">
+                      <tr>
+                      <th class="th1">Disease and Symptoms</th>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">
+                              {% for i in s2 %}
+                              {{i.symptom}}
+                              {% endfor %}
+                          </td>
+                      </tr>
+                  </table>
+
+<!--                 row clos    -->
+            </div>
+
+              <div class="row pt-4 px-2">
+
+                  <table class="table1" style="text-align:left;">
+                      <tr>
+                      <th class="th1">Item</th>
+                          <th class="th1" style="text-align:center;">Price</th>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Room Charge(per Day)</td>
+                          <td><input type="text" name="room_c" id="room_c"></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Doctor Fee</td>
+                          <td><input type="text" name="doc_f" id="doc_f"></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Medicine Cost</td>
+                          <td><input type="text" name="med_c" id="med_c"></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Other Charge</td>
+                          <td><input type="text" name="oth_c" id="oth_c"></td>
+                      </tr>
+                  </table>
+
+<!--                 row clos    -->
+            </div>
+              <div class="row mt-3 pb-5">
+                  <button type="submit" style="width=50%;">Generate Bill</button>
+              </div>
+          </div>
+ </div>
+</form>
+      {% endif %}
+
+            {% if billl %}
+             <div class="container" style="padding-top:80px;padding-bottom:40px;">
+          <div class="container mx-2 " style="border:solid 1px;">
+              <div class="row">
+              <div class="col-3"><h3  style="padding-top:10px;">Hospital Management</h3></div>
+              <div class="col"   style="padding-left:460px;">
+
+                         <label>Admit date :</label>
+                            <label>{{r2.join_date}}</label><br>
+                        <label>Release date :</label>
+                            <label>{{r4.release_date}}</label><br>
+                        <label>Days Spent :</label>
+                            <label>{{c}}</label><br>
+
+            </div>
+              </div>
+
+        <div class="row pt-3">
+              <div class="col-4"  style="padding-top:10px;">
+                  {% for i in pat %}
+                                <label>Patient Name :</label>
+                                    <label>{{ i.first_name}} {{ i.last_name }}</label><br>
+                                <label>Patient Mobile :</label>
+                                    <label>{{i.mobile}}</label><br>
+                                <label>Patient Address :</label>
+                                    <label>{{i.address}}</label><br>
+                {% endfor %}
+              </div>
+              <div class="col"   style="padding-left:460px;">
+                         <label>Doctor Name :</label>
+                            <label>{{r3.first_name}} {{r3.last_name}}</label><br>
+
+
+            </div>
+        </div>
+              <div class="row pt-4 px-2">
+                  <table class="table1" style="text-align:left;">
+                      <tr>
+                      <th class="th1">Disease and Symptoms</th>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">
+                              {% for i in pat %}
+                              {{i.symptom}}
+                              {% endfor %}
+                          </td>
+                      </tr>
+                  </table>
+
+<!--                 row clos    -->
+            </div>
+
+              <div class="row pt-4 px-2">
+
+
+                  <table class="table1" style="text-align:left;">
+                      <tr>
+                      <th class="th1">Item</th>
+                          <th class="th1" style="text-align:center;">Price</th>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Room Charge(per Day)</td>
+                          <td>{{r}}</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Doctor Fee</td>
+                          <td>{{d}}</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Medicine Cost</td>
+                          <td>{{m}}</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Other Charge</td>
+                          <td>{{o}}</td>
+                      </tr>
+                  </table>
+
+<!--                 row clos    -->
+            </div>
+              <div class="row mt-3 pb-5">
+                   <button type="submit" style="width=50%;">Bill </button>
+              </div>
+          </div>
+ </div>
+
+            {% endif %}
+            {% if admit_patient2 %}
+      <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Patients Waiting for Admit</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Name</th>
+                  <th>Profile</th>
+                  <th>Mobile</th>
+                  <th width="200px">Address</th>
+                  <th>Symptoms</th>
+                  <th>Admit</th>
+
+              </tr>
+
+              {% for i in a %}
+              <tr>
+                  <td>{{i.patient_name}}</td>
+                  {% endfor %}
+                  <td></td>
+                  {% for i in p %}
+                  <td>{{i.mobile}}</td>
+
+                  <td>{{i.address}}</td>
+                  <td>{{i.symptom}}</td>
+                    {% endfor %}
+                  {% for i in a %}
+                  <td><a href="admit{{i.id}}"> <button style="background-color:green;margin-left:20px;"><i class="fa fa-check-square"></i></button></a></td>
+                  {% endfor %}
+
+              </tr>
+
+
+          </table>
+
+      </div>
+
+
+      {% endif %}
+
   </div><!--  right div close-->
 
 <!--2nd row-->

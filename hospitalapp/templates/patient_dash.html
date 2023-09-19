@@ -2,6 +2,7 @@
 {% block title %}Patient Home{% endblock %}
 {% load static %}
 {% block style %}
+
 #left_top_div{
 background-color:#3BB78F;
 <!--width:100px;-->
@@ -16,10 +17,13 @@ border:solid 3px yellow;
 
 .left_bot_div{
 
-height:330px;
+height:392px;
 
 background-color:#4ebe9a;
 border-top:none;
+}
+.doc_card:hover{
+box-shadow: 0 16px 16px 0 rgba(0, 0, 0, 0.2);
 }
 .anchor{
 color:black;
@@ -53,7 +57,7 @@ border:solid 1px;
 .div1{
 padding-top:80px;
 }
-#hc{
+#hc,#hd{
 color:black;
 font-size:60px;
 text-align:center;
@@ -62,7 +66,12 @@ text-align:center;
 .btn1{
 margin-left:500px;
 }
-
+.i_card {
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid grey;
+  padding: 10px;
+}
 
 {% endblock %}
 {% block body %}
@@ -74,7 +83,7 @@ margin-left:500px;
 </div>
 <p style="text-align:center;font-size:15px;">Soon your Account will be confirmed!!!</p>
 <hr>
-    <a href="admin_signup"> <button type="button" class="btn btn-primary btn1">Logout for Now</button></a>
+    <a href="home"> <button type="button" class="btn btn-primary btn1">Logout for Now</button></a>
 {% endif %}
 {% if nw %}
 
@@ -99,8 +108,8 @@ margin-left:500px;
                   <div class="col mt-4 mb-4" >
                   <h5><a class="anchor" href="patient_dashboard" ><i class="fa fa-dashboard"></i> Dashboard</a></h5>
 
-                  <a class="anchor" href="doctor_patient"> <h5><i class="fa fa-wheelchair"></i> Patient</h5></a>
-                  <a class="anchor" href="doctor_appointment"> <h5><i class="fa fa-calendar"> </i> Appointments</h5></a>
+                  <a class="anchor" href="patient_appointments"> <h5><i class="fa fa-wheelchair"></i> Appointments</h5></a>
+                  <a class="anchor" href="patient_discharge"> <h5><i class="fa fa-calendar"> </i> Discharge </h5></a>
                   </div>
 
                 </div>
@@ -124,7 +133,7 @@ margin-left:500px;
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
 
-                <a class="nav-link active" style="color:white;" aria-current="page" href="logout"><b>Logout</b></a>
+                <a class="nav-link active" style="color:white;" aria-current="page" href="pat_logout"><b>Logout</b></a>
 
               </li>
 
@@ -152,7 +161,10 @@ margin-left:500px;
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
                                     <h5 class="card-title">Doctor Name</h5>
-                                    <p class="card-text"></p>
+
+                                    {% for i in a %}
+                                    <p class="card-text">{{i.doctor_name}}</p>
+                                    {% endfor %}
 
                                   </div>
                             </div>
@@ -164,9 +176,358 @@ margin-left:500px;
                     </div>
             </div>
 
+
+
+            <div class="col">
+                        <div class="card mt-5" style="width: 18rem;background-color:orange;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Symptoms</h5>
+                                    {% for i in a%}
+                                    <p class="card-text">{{i.description}}</p>
+                                    {% endfor %}
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-5 " style="margin-right:80px;">
+                                <i class=" i_card fas fa-user-alt" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+
+<!--            appointment col-->
+            <div class="col">
+                        <div class="card mt-5" style="width: 18rem;background-color:blue;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-3">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Doctor Mobile</h5>
+                                    {% for i in d %}
+                                    <p class="card-text">{{i.mobile}}</p>
+                                    {% endfor %}
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-5 " style="margin-right:80px;">
+                                <i class="i_card fa fa-refresh"style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+<!--                end row-->
+            </div>
+
+        </div>
+
+        <div class="row mx-2 mt-5">
+<!--            doctor col-->
+            <div class="col">
+                        <div class="card mt-5" style="width: 18rem;background-color:red;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Doctor Address</h5>
+                                    {% for i in d %}
+                                    <p class="card-text">{{i.address}}</p>
+                                    {% endfor %}
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-5 " style="margin-right:80px;">
+                                <i class=" i_card fa fa-calendar" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+
+<!--            patient col-->
+
+            <div class="col">
+                        <div class="card mt-5" style="width: 18rem;background-color:orange;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Doctor Department</h5>
+                                    {% for i in d %}
+                                    <p class="card-text">{{i.specialisation}}</p>
+                                    {% endfor %}
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-5 " style="margin-right:80px;">
+                                <i class=" i_card fas fa-user-alt" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+
+<!--            appointment col-->
+            <div class="col">
+                        <div class="card mt-5" style="width: 18rem;background-color:blue;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-3">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Appointment Date</h5>
+                                    {% for i in a %}
+                                    <p class="card-text">{{i.join_date}}</p>
+                                    {% endfor %}
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-5 " style="margin-right:80px;">
+                                <i class="i_card fa fa-refresh"style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+<!--                end row-->
+            </div>
+
+        </div>
+
         {% endif %}
+{% if appoint %}
+        <div class="row mt-5 mx-5">
+    <div class="col">
+        <a href="view_your_appoint">
+        <div class=" doc_card card mt-5" style="width: 18rem;background-color:#6699CC;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">View Your Appointments</h5>
+
+                                  </div>
+                            </div>
+                             <div class="col  " style="margin-left:100px;">
+                               <i class=" i_card fa fa-calendar" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+        </a>
+    </div>
+
+    <div class="col">
+        <a href="book_appoint">
+        <div class=" doc_card card mt-5" style="width: 18rem;background-color:#29AB87;height:130px;">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Book Appointments</h5>
+
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col  " style="margin-left:100px;">
+                            <i class=" i_card fa fa-thumbs-up" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                    </div>
+        </a>
+    </div>
 
 
+
+</div>
+
+        {% endif %}
+ {% if book_appoint %}
+        <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Book Appointment details</h4>
+          </div>
+            <div style="border:solid 1px;">
+                <form method="POST">
+                    {% csrf_token %}
+            <div class="row mt-5 px-5">
+                <div class="col">
+                <textarea rows="8" cols="110" name="description" placeholder="Description"></textarea>
+                </div>
+            </div>
+             <div class="row mt-3 px-5">
+            <div class="col">
+<!--                <input type="text" placeholder="" ><br>-->
+                <select id="special" name="special"  style="width:50%;" >
+                    <option name="special" value="special">Doctor Name and Department</option>
+                    {% for i in d %}
+                <option name="special" value="{{i.user_name}}">{{i.first_name}} {{i.last_name}}({{i.specialisation}})</option>
+
+                {% endfor %}
+
+              </select><br>
+            </div>
+             </div>
+                    <div class="row mt-3 px-5">
+            <div class="col">
+<!--                <input type="text" placeholder="" ><br>-->
+                <input type="date" id="book_date" name="book_date">
+            </div>
+             </div>
+            <div class="row mt-4 mb-3">
+                <button type="submit" class="btn btn-primary" style="width:100px;margin-left:250px;">Book</button>
+
+            </div>
+            </div>
+                    </form>
+        </div>
+
+
+        {% endif %}
+{% if v_y_a %}
+<div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Your Appointments</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Doctor Name</th>
+                  <th>Description</th>
+                  <th>Date</th>
+<!--                  <th width="200px">Address</th>-->
+                  <th>Status</th>
+
+              </tr>
+
+              {% for i in a %}
+              <tr>
+                  <td>{{i.doctor_name}}</td>
+                  <td>{{i.description}}</td>
+                  <td>{{i.app_date}}</td>
+                  <td><button type="button" class="btn btn-success btn-sm">{{i.status}}</button></td>
+
+
+              </tr>
+              {% endfor %}
+
+          </table>
+
+      </div>
+
+            {% endif %}
+
+
+ {% if dis_w %}
+            {% if nd %}
+
+        <div class=" div1 container-fluid mt-5">
+        {% for i in s %}
+<h1 id="hd">Hello, {{i.first_name}} </h1>
+            {% endfor %}
+    <p style="text-align:center;font-size:18px;">You Are Not Discharged By Hospital!!!</p>
+      <p style="text-align:center;font-size:18px;padding-top:10px;">Your Treatment Is Going On !!! </p>
+</div>
+<p style="text-align:center;font-size:15px;">When You will be Discharged You Can Download Invoice.</p>
+<hr>
+            {% endif %}
+            {% if d %}
+            <div class="container" style="padding-top:80px;padding-bottom:40px;">
+          <div class="container mx-2 " style="border:solid 1px;">
+              <div class="row">
+              <div class="col-3"><h3  style="padding-top:10px;">Hospital Management</h3></div>
+              <div class="col"   style="padding-left:460px;">
+                    {% for i in s %}
+                         <label>Admit date :</label>
+
+                            <label>{{i.join_date}}</label><br>
+                  {% endfor %}
+                        <label>Release date :</label>
+
+                            <label>{{disc.release_date}}</label><br>
+
+                        <label>Days Spent :</label>
+                            <label>{{c}}</label><br>
+
+            </div>
+              </div>
+
+        <div class="row pt-3">
+              <div class="col-4"  style="padding-top:10px;">
+                  {% for i in s %}
+                                <label>Patient Name :</label>
+                                    <label>{{ i.first_name}} {{ i.last_name }}</label><br>
+                                <label>Patient Mobile :</label>
+                                    <label>{{i.mobile}}</label><br>
+                                <label>Patient Address :</label>
+                                    <label>{{i.address}}</label><br>
+
+              </div>
+              <div class="col"   style="padding-left:460px;">
+                         <label>Doctor Name :</label>
+
+                            <label>{{doct.first_name}} {{doct.last_name}}</label><br>
+
+
+            </div>
+        </div>
+              <div class="row pt-4 px-2">
+                  <table class="table1" style="text-align:left;">
+                      <tr>
+                      <th class="th1">Disease and Symptoms</th>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">
+                              {{i.symptom}}
+                          </td>
+                          {% endfor %}
+                      </tr>
+                  </table>
+
+<!--                 row clos    -->
+            </div>
+
+              <div class="row pt-4 px-2">
+
+
+                  <table class="table1" style="text-align:left;">
+                      <tr>
+                      <th class="th1">Item</th>
+                          <th class="th1" style="text-align:center;">Price</th>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Room Charge(per Day)</td>
+                          <td>{{disc.room_charge}}</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Doctor Fee</td>
+                          <td>{{disc.doc_fee}}</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Medicine Cost</td>
+                          <td>{{disc.medicine_cost}}</td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;">Other Charge</td>
+                          <td>{{disc.other_charge}}</td>
+                      </tr>
+
+                      <tr>
+                          <td style="text-align:right;"><b>Total Charge :</b></td>
+                          <td>{{disc.total_charge}}</td>
+                      </tr>
+                  </table>
+
+<!--                 row clos    -->
+            </div>
+              <div class="row mt-3 pb-5">
+                   <button type="submit" style="width=50%;">Bill </button>
+              </div>
+          </div>
+ </div>
+
+            {% endif %}
+ {% endif %}
+
+
+<!--            &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;last&#45;&#45;&#45;&#45;-->
 {% endif %}
 
 {% endblock %}
