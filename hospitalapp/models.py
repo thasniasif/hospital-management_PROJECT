@@ -66,12 +66,12 @@ class discharge_tb(models.Model):
         if self.total_charge>0:
 
             account_sid = 'AC73cc8410e7b97d7c9b9b41772959e9e1'
-            auth_token = 'cd98327349cd3b5df4fa37f72a1bd32a'
+            auth_token = '83836680b8a7fedf6c4c06bd4908a68e'
             client = Client(account_sid, auth_token)
 
             message = client.messages \
                 .create(
-                body=f"Hi{self.p_id.first_name} {self.p_id.last_name} You are discharged from the hospital...Your total bill amount is {self.total_charge}",
+                body=f"Hi {self.p_id.first_name} {self.p_id.last_name} You are discharged from the hospital...Your total bill amount is {self.total_charge}",
                 from_='+15704378688',
                 to='+919747100240'
             )

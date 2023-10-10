@@ -1224,6 +1224,7 @@ def y_d_p(request):
         current_user = request.session["doc_user"]
         s = doctor.objects.filter(user_name=current_user)
         dis=discharge_tb.objects.filter(doctor_user_name=current_user)
+
         for i in dis:
             pat_rec=patient.objects.filter(id=i.p_id_id)
 
