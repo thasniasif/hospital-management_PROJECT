@@ -13,6 +13,7 @@ border-bottom:none;
 #img1 {
 border-radius: 50%;
 border:solid 3px yellow;
+
 }
 
 .left_bot_div{
@@ -77,7 +78,7 @@ margin-left:500px;
 {% block body %}
 {% if w %}
 <div class=" div1 container-fluid mt-5">
-<h1 id="hc">Hello, Doctor </h1>
+<h1 id="hc">Hello, Patient </h1>
     <p style="text-align:center;font-size:18px;">Your Account is not approved till now</p>
       <p style="text-align:center;font-size:18px;padding-top:10px;">Our team is checking your profile</p>
 </div>
@@ -93,11 +94,12 @@ margin-left:500px;
                   <!--    1st row 1st col-->
                   <div class=" row" id="left_top_div">
                           <div class="col mt-5 mb-3">
-
-                            <img id="img1" src="{% static 'images/admin1.jpg'%}" alt="img1" height="80px" width="80px;">
-                            <h5>PATIENT</h5>
                             {% for i in s %}
+                            <img id="img1" src="{{i.profile.url}}" class="img-responsive" alt="img1" height="80px" width="80px;">
+                            <h5>PATIENT</h5>
+
                             <h1>{{i.first_name}}</h1>
+                              <h5>({{i.pat_id}})</h5>
                             {% endfor %}
 
                           </div>
@@ -151,6 +153,14 @@ margin-left:500px;
 
                     </div>
 </nav>
+        {% if b %}
+        {% for i in s %}
+        <div style="margin-top:200px;text-align:center;">
+            <h1>Hello...Welcome {{i.first_name}} {{i.last_name}}</h1>
+            <h3>Your Patient ID IS <span style="color:red;"><b>{{i.pat_id}}</b></span></h3>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% if dash %}
         <div class="row mx-2 mt-5">
 <!--            doctor col-->
@@ -341,6 +351,15 @@ margin-left:500px;
 
         {% endif %}
  {% if book_appoint %}
+        {% if disable %}
+        <div class="container" style="padding-top:200px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:100px;">
+              <h4 style="color:white;padding-top:10px;">Sorry!!! You Can Book a new Appointment Once You are discharged..Now You are under treatment!!!</h4>
+          </div>
+        </div>
+
+        {% endif %}
+        {% if ndisable %}
         <div class="container" style="padding-top:100px;">
           <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
               <h4 style="color:white;padding-top:10px;">Book Appointment details</h4>
@@ -379,7 +398,7 @@ margin-left:500px;
             </div>
                     </form>
         </div>
-
+{% endif %}
 
         {% endif %}
 {% if v_y_a %}
@@ -423,7 +442,7 @@ margin-left:500px;
 <h1 id="hd">Hello, {{i.first_name}} </h1>
             {% endfor %}
     <p style="text-align:center;font-size:18px;">You Are Not Discharged By Hospital!!!</p>
-      <p style="text-align:center;font-size:18px;padding-top:10px;">Your Treatment Is Going On !!! </p>
+      <p style="text-align:center;font-size:18px;padding-top:10px;">Your Treatment under Dr.{{doct.first_name}} {{doct.last_name}} Is Going On !!! </p>
 </div>
 <p style="text-align:center;font-size:15px;">When You will be Discharged You Can Download Invoice.</p>
 <hr>
@@ -440,9 +459,9 @@ margin-left:500px;
                             <label>{{i.join_date}}</label><br>
                   {% endfor %}
                         <label>Release date :</label>
-
-                            <label>{{disc.release_date}}</label><br>
-
+                {% for i in disc %}
+                            <label>{{i.release_date}}</label><br>
+                    {% endfor %}
                         <label>Days Spent :</label>
                             <label>{{c}}</label><br>
 
@@ -492,33 +511,37 @@ margin-left:500px;
                       <th class="th1">Item</th>
                           <th class="th1" style="text-align:center;">Price</th>
                       </tr>
+                      {% for i in disc %}
                       <tr>
                           <td style="text-align:left;">Room Charge(per Day)</td>
-                          <td>{{disc.room_charge}}</td>
+                          <td>{{i.room_charge}}</td>
                       </tr>
                       <tr>
                           <td style="text-align:left;">Doctor Fee</td>
-                          <td>{{disc.doc_fee}}</td>
+                          <td>{{i.doc_fee}}</td>
                       </tr>
                       <tr>
                           <td style="text-align:left;">Medicine Cost</td>
-                          <td>{{disc.medicine_cost}}</td>
+                          <td>{{i.medicine_cost}}</td>
                       </tr>
                       <tr>
                           <td style="text-align:left;">Other Charge</td>
-                          <td>{{disc.other_charge}}</td>
+                          <td>{{i.other_charge}}</td>
                       </tr>
 
                       <tr>
                           <td style="text-align:right;"><b>Total Charge :</b></td>
-                          <td>{{disc.total_charge}}</td>
+                          <td>{{i.total_charge}}</td>
                       </tr>
+                      {% endfor %}
                   </table>
 
 <!--                 row clos    -->
             </div>
               <div class="row mt-3 pb-5">
-                   <button type="submit" style="width=50%;">Bill </button>
+
+                  <a href="bill_pdf_pat"><button>Download Bill</button></a>
+
               </div>
           </div>
  </div>

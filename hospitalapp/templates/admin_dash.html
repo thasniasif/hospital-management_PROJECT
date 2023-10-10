@@ -338,7 +338,7 @@ border:solid 1px;
 
                                   </div>
                             </div>
-                            <div class="col-1 mt-3 " style="margin-right:80px;">
+                            <div class="col-1 mt-3 " style="margin-right:60px;">
                                 <i class=" i_card fa fa-user-md" style="font-size:35px;color:orange;"></i>
                             </div>
                         </div>
@@ -415,13 +415,32 @@ border:solid 1px;
         </a>
     </div>
     <div class="col">
+        <a href="discharge_patient_op">
+        <div class="doc_card card mt-5" style="width: 18rem;background-color:#E23D28">
+
+                        <div class="row">
+                            <div class="col px-4">
+                                <div class="card-body " style="color:white;" >
+                                    <h5 class="card-title">Discharge OP Patient</h5>
+
+                                  </div>
+                            </div>
+                            <div class="col-1 mt-3 " style="margin-right:80px;">
+                                <i class=" i_card fa fa-user-md" style="font-size:35px;color:orange;"></i>
+                            </div>
+                        </div>
+
+                  </div>
+        </a>
+    </div>
+<div class="col">
         <a href="discharge_patient">
         <div class="doc_card card mt-5" style="width: 18rem;background-color:#E23D28">
 
                         <div class="row">
                             <div class="col px-4">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">Discharge Patient</h5>
+                                    <h5 class="card-title">Discharge IP Patient</h5>
 
                                   </div>
                             </div>
@@ -511,13 +530,13 @@ border:solid 1px;
               {% if s2 %}
               {% for i in s2 %}
               <tr>
-                  <td>{{i.first_name}} {{i.last_name}}</td>
-                  <td></td>
+                  <td>{{i.first_name}} {{i.last_name}}<br><span style="color:red;"><b>({{i.pat_id}})</b></span></td>
+                  <td><img id="im" src="{{i.profile.url}}" class="img-responsive" alt="img1" height="80px" width="80px;"></td>
                   <td>{{i.mobile}}</td>
                   <td>{{i.address}}</td>
                   <td>{{i.symptom}}</td>
                   <td><a href="approve_pat{{i.id}}"> <button style="background-color:green;margin-left:20px;"><i class="fa fa-check-square"></i></button></a></td>
-                  <td><a href="reject{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
+                  <td><a href="reject_pat{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
               </tr>
               {% endfor %}
               {% endif %}
@@ -540,18 +559,18 @@ border:solid 1px;
                   <th>Mobile</th>
                   <th width="200px">Address</th>
                   <th>Department</th>
-                  <th>Update</th>
+
                   <th>Delete</th>
               </tr>
                 {% if s2 %}
               {% for i in s2 %}
               <tr>
                   <td>{{i.first_name}} {{i.last_name}}</td>
-                  <td></td>
+                  <td><img id="img2" src="{{i.profile.url}}" alt="img1" height="80px" width="80px;"></td>
                   <td>{{i.mobile}}</td>
                   <td>{{i.address}}</td>
                   <td>{{i.specialisation}}</td>
-                  <td><a href="approve{{i.id}}"> <button style="background-color:green;margin-left:20px;"><i class="fa fa-refresh" ></i></button></a></td>
+
                   <td><a href="reject{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
               </tr>
               {% endfor %}
@@ -575,18 +594,18 @@ border:solid 1px;
                   <th>Mobile</th>
                   <th width="200px">Address</th>
                   <th>Symptoms</th>
-                  <th>Update</th>
+
                   <th>Delete</th>
               </tr>
                 {% if s2 %}
               {% for i in s2 %}
               <tr>
                   <td>{{i.first_name}} {{i.last_name}}</td>
-                  <td></td>
+                  <td><img id="img" src="{{i.profile.url}}" alt="img1" height="80px" width="80px;"></td>
                   <td>{{i.mobile}}</td>
                   <td>{{i.address}}</td>
                   <td>{{i.symptom}}</td>
-                  <td><a href="approve{{i.id}}"> <button style="background-color:green;margin-left:20px;"><i class="fa fa-refresh" ></i></button></a></td>
+
                   <td><a href="reject{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
               </tr>
               {% endfor %}
@@ -600,28 +619,23 @@ border:solid 1px;
     {% if discharge_patient %}
       <div class="container" style="padding-top:100px;">
           <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
-              <h4 style="color:white;padding-top:10px;">Discharge Patient</h4>
+              <h4 style="color:white;padding-top:10px;">Discharge IP Patient</h4>
           </div>
           <table style="width:100%">
               <tr>
                  <th>Name</th>
-                  <th>Profile</th>
-                  <th>Mobile</th>
-                  <th width="200px">Address</th>
+
                   <th>Symptoms</th>
 
                   <th>Discharge</th>
               </tr>
 
-              {% for i in s2 %}
+              {% for i in a %}
               <tr>
-                  <td>{{i.first_name}} {{i.last_name}}</td>
-                  <td></td>
-                  <td>{{i.mobile}}</td>
-                  <td>{{i.address}}</td>
-                  <td>{{i.symptom}}</td>
-                {% endfor %}
-                  {% for i in a %}
+                  <td>{{i.patient_name}}</td>
+
+                  <td>{{i.description}}</td>
+
                   <td><a href="discharge{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
               {% endfor %}
               </tr>
@@ -842,7 +856,7 @@ border:solid 1px;
               <tr>
                   <td>{{i.doctor_name}}</td>
 
-                  <td>{{i.patient_name}}</td>
+                  <td>{{i.patient_name}}<span style="color:red;"><b>({{i.pat_id}})</b></span></td>
 
                   <td>{{i.description}}</td>
                   <td>{{i.join_date}}</td>
@@ -884,9 +898,9 @@ border:solid 1px;
             <div class="col">
 <!--                <input type="text" placeholder="" ><br>-->
                 <select id="p_special" name="p_special"  style="width:50%;" >
-                    <option name="p_special" value="p_special">Patient Name and Description</option>
+                    <option name="p_special" value="p_special">Patient Name </option>
                     {% for i in p %}
-                <option name="p_special" value="{{i.user_name}}">{{i.first_name}} {{i.last_name}}({{i.symptom}})</option>
+                <option name="p_special" value="{{i.user_name}}">{{i.first_name}} {{i.last_name}}</option>
 
                 {% endfor %}
               </select><br>
@@ -908,6 +922,7 @@ border:solid 1px;
           </div>
           <table style="width:100%">
               <tr>
+                  <th>Patient Name</th>
                  <th>Doctor Name</th>
                   <th>Description</th>
                   <th>Date</th>
@@ -918,6 +933,9 @@ border:solid 1px;
 
               {% for i in a %}
               <tr>
+
+                  <td>{{i.patient_name}}<span style="color:red;"><b>({{i.pat_id}})</b></span></td>
+
                   <td>{{i.doctor_name}}</td>
                   <td>{{i.description}}</td>
                   <td>{{i.app_date}}</td>
@@ -930,6 +948,21 @@ border:solid 1px;
           </table>
 
       </div>
+
+            {% endif %}
+            {% if nb %}
+            <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">View Appointments</h4>
+          </div>
+                <div>
+                    <h1>You are not discharged</h1>
+                </div>
+
+      </div>
+
+
+
 
             {% endif %}
             {% if discharge_v %}
@@ -946,10 +979,9 @@ border:solid 1px;
                             <label>{{a.join_date}}</label><br>
                     {% for i in disc %}
                         <label>Release date :</label>
-                            <label>{{i..release_date}}</label><br>
+                            <label>{{i.release_date}}</label><br>
                   {% endfor %}
-                        <label>Days Spent :</label>
-                            <label>{{c}}</label><br>
+
 
             </div>
               </div>
@@ -997,7 +1029,7 @@ border:solid 1px;
                           <th class="th1" style="text-align:center;">Price</th>
                       </tr>
                       <tr>
-                          <td style="text-align:left;">Room Charge(per Day)</td>
+                          <td style="text-align:left;">Room Charge</td>
                           <td><input type="text" name="room_c" id="room_c"></td>
                       </tr>
                       <tr>
@@ -1099,13 +1131,20 @@ border:solid 1px;
                       <tr>
                           <td style="text-align:left;">Other Charge</td>
                           <td>{{o}}</td>
+
+                      </tr>
+                      <tr>
+                          <td style="text-align:left;"><b>Total Charge</b></td>
+                          <td>{{t}}</td>
+
                       </tr>
                   </table>
 
 <!--                 row clos    -->
             </div>
               <div class="row mt-3 pb-5">
-                   <button type="submit" style="width=50%;">Bill </button>
+                  <a href="bill_pdf{{r2.id}}"><button>Download Bill</button></a>
+<!--                   <button type="submit" style="width=50%;">Bill </button>-->
               </div>
           </div>
  </div>
@@ -1119,9 +1158,7 @@ border:solid 1px;
           <table style="width:100%">
               <tr>
                  <th>Name</th>
-                  <th>Profile</th>
-                  <th>Mobile</th>
-                  <th width="200px">Address</th>
+
                   <th>Symptoms</th>
                   <th>Admit</th>
 
@@ -1130,18 +1167,49 @@ border:solid 1px;
               {% for i in a %}
               <tr>
                   <td>{{i.patient_name}}</td>
-                  {% endfor %}
-                  <td></td>
-                  {% for i in p %}
-                  <td>{{i.mobile}}</td>
 
-                  <td>{{i.address}}</td>
-                  <td>{{i.symptom}}</td>
-                    {% endfor %}
-                  {% for i in a %}
+
+
+                  <td>{{i.description}}</td>
+
+
                   <td><a href="admit{{i.id}}"> <button style="background-color:green;margin-left:20px;"><i class="fa fa-check-square"></i></button></a></td>
                   {% endfor %}
 
+              </tr>
+
+
+          </table>
+
+      </div>
+
+
+      {% endif %}
+
+            {% if discharge_patient_op %}
+            <div class="container" style="padding-top:100px;">
+          <div style="border:solid 1px;text-align:center;background-color:#002D62; height:50px;">
+              <h4 style="color:white;padding-top:10px;">Discharge OP Patient</h4>
+          </div>
+          <table style="width:100%">
+              <tr>
+                 <th>Name</th>
+
+                  <th>Symptoms</th>
+
+                  <th>Discharge</th>
+              </tr>
+
+              {% for i in a %}
+              <tr>
+                  <td>{{i.patient_name}}</td>
+
+
+                  <td>{{i.description}}</td>
+
+
+                  <td><a href="discharge{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
+              {% endfor %}
               </tr>
 
 

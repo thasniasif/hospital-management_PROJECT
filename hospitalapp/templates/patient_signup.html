@@ -1,37 +1,38 @@
 {% extends 'base.html' %}
 {% block title %}SIGNUP{% endblock %}
+{% block script2 %}{% endblock %}
 {% block script %}
 function validate(){
-
-    var pwd=document.getElementById("password").value;
-    var pwd_pat=/(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[A-Z]).{4,}/;
-    var user=document.getElementById("username").value;
+var pwd=document.getElementById("password_pat").value;
+    var user=document.getElementById("username_pat").value;
     var user_pat=/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/;
+    var pwd_pat=/(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[A-Z]).{4,}/;
     if(pwd_pat.test(pwd)==false){
-        alert("Password must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");
+        $('#pass_span').html('Password must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 digit 1spl char[!@#$%^&*]');
+<!--        alert("Password must contain  min 4 char, atleast   1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");-->
         return false;
-    }
-    if(user_pat.test(user)==false){
+        }
+    else if(user_pat.test(user)==false){
         $('#error_span').html('username must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 digit ');
 <!--        alert("Password must contain  min 4 char, atleast   1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");-->
         return false;
         }
     else{
-    alert("Registered Successfully!!")
+    alert("Registered Successfully!!!")
     return true;
     }
 
-}
-$(function(){
-var avail=[
-{% for i in s %}
-"{{i.symptom}}",
-{% endfor %}
-];
-$(#symptom).autocomplete({
-source: avail
-});
-});
+
+<!--$(function(){-->
+<!--var avail=[-->
+<!--{% for i in s %}-->
+<!--"{{i.symptom}}",-->
+<!--{% endfor %}-->
+<!--];-->
+<!--$(#symptom).autocomplete({-->
+<!--source: avail-->
+<!--});-->
+<!--});-->
 
 }
 {% endblock %}
@@ -64,7 +65,7 @@ margin-top:130px;
     <h4 id="hc">Patient Registeration</h4>
     </div>
     <div class="container mt-4" style="margin-left:50px;">
-        <form method="POST" enctype="multipart/form-data" onsubmit="return validate()">
+        <form method="POST" id="my_form" action="patient_signup" enctype="multipart/form-data" onsubmit="return validate()">
             {% csrf_token %}
         <div class="row mt-3">
             <div class="col">
@@ -86,10 +87,10 @@ margin-top:130px;
 
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="User Name" id="uname" name="uname" required autocomplete="off" ><br>
+                <input type="text" placeholder="User Name" id="username_pat" name="username_pat" required autocomplete="off" ><br>
             </div>
             <div class="col">
-                 <input type="password" placeholder="Password" id="password" name="password" required autocomplete="off">
+                 <input type="password" placeholder="Password" id="password_pat" name="password_pat" required autocomplete="off">
             </div>
         </div>
             <div class="row">
@@ -123,7 +124,7 @@ margin-top:130px;
             </div>
             </div>
             <div class="row mt-4">
-                <button type="submit" class="btn btn-primary" style="width:100px;margin-left:250px;">Apply</button>
+                <button type="submit" id="signup_btn" class="btn btn-primary" style="width:100px;margin-left:250px;">Apply</button>
 
             </div>
 

@@ -92,10 +92,10 @@ margin-left:500px;
                   <!--    1st row 1st col-->
                   <div class=" row" id="left_top_div">
                           <div class="col mt-5 mb-3">
-
-                            <img id="img1" src="{% static 'images/admin1.jpg'%}" alt="img1" height="80px" width="80px;">
-                            <h5>DOCTOR</h5>
                             {% for i in s %}
+                            <img id="img1" src="{{i.profile.url}}" alt="img1" height="80px" width="80px;">
+                            <h5>DOCTOR</h5>
+
                             <h1>{{i.first_name}}</h1>
                             {% endfor %}
 
@@ -203,7 +203,7 @@ margin-left:500px;
                         <div class="row">
                             <div class="col px-3">
                                 <div class="card-body " style="color:white;" >
-                                    <h5 class="card-title">1</h5>
+                                    <h5 class="card-title">{{d_c}}</h5>
                                     <p class="card-text">Your Patients Discharged</p>
 
                                   </div>
@@ -228,7 +228,7 @@ margin-left:500px;
                     <table style="width:100%">
                         <tr>
                             <th>Patient Name</th>
-                            <th>Picture</th>
+                            <th>Patient ID</th>
                             <th>Description</th>
                             <th>Mobile</th>
                             <th>Address</th>
@@ -239,7 +239,7 @@ margin-left:500px;
                         <tr>
 
                             <td>{{i.patient_name}}</td>
-                            <td></td>
+                            <td style="color:red;"><b>{{i.pat_id}}</b></td>
                             <td>{{i.description}}</td>
                             {% for j in p %}
                             <td>{{j.mobile}}</td>
@@ -338,23 +338,18 @@ margin-left:500px;
           <table style="width:100%">
               <tr>
                  <th>Name</th>
-                  <th>Profile</th>
-                  <th>Mobile</th>
-                  <th width="200px">Address</th>
+
                   <th>Symptoms</th>
-                  <th>Discharge</th>
+                  <th>Treated</th>
 
               </tr>
 
-              {% for i in p1 %}
+              {% for i in a %}
               <tr>
-                  <td>{{i.first_name}} {{i.last_name}}</td>
-                  <td></td>
-                  <td>{{i.mobile}}</td>
-                  <td>{{i.address}}</td>
-                  <td>{{i.symptom}}</td>
-                  {% endfor %}
-                  {% for i in a %}
+                  <td>{{i.patient_name}}</td>
+
+                  <td>{{i.description}}</td>
+
                     <td><a href="doc_discharge{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
               {% endfor %}
               </tr>
@@ -375,20 +370,22 @@ margin-left:500px;
           <table style="width:100%">
               <tr>
                  <th>Name</th>
-                  <th>Profile</th>
-                  <th>Mobile</th>
-                  <th width="200px">Address</th>
+
+
+
                   <th>Symptoms</th>
+                  <th>Treated</th>
 
               </tr>
+    {% for i in a %}
 
-              {% for i in p1 %}
               <tr>
-                  <td>{{i.first_name}} {{i.last_name}}</td>
-                  <td></td>
-                  <td>{{i.mobile}}</td>
-                  <td>{{i.address}}</td>
-                  <td>{{i.symptom}}</td>
+                  <td>{{i.patient_name}}</td>
+
+
+                  <td>{{i.description}}</td>
+
+                    <td><a href="doc_discharge_OP{{i.id}}"> <button style="background-color:green;margin-left:20px;"><i class="fa fa-refresh" ></i></button></a></td>
 
               </tr>
               {% endfor %}
@@ -649,10 +646,9 @@ margin-left:500px;
           <table style="width:100%">
               <tr>
                  <th>Patient Name</th>
-                  <th>Profile</th>
+
                   <th>Description</th>
-                  <th>Mobile</th>
-                  <th>Address</th>
+
                   <th>Appointment Date</th>
 
               </tr>
@@ -660,12 +656,11 @@ margin-left:500px;
               {% for i in a %}
               <tr>
                   <td>{{i.patient_name}}</td>
-                  <td></td>
+
+
+
                   <td>{{i.description}}</td>
-                  {% for j in p %}
-                  <td>{{j.mobile}}</td>
-                  <td>{{j.address}}</td>
-                  {% endfor %}
+
                   <td>{{i.join_date}}</td>
 
               </tr>
@@ -687,22 +682,22 @@ margin-left:500px;
           <table style="width:100%">
               <tr>
                  <th>Patient Name</th>
-                  <th>Profile</th>
+
                   <th>Description</th>
                     <th>IP</th>
-                  <th>OP(Delete)</th>
+                  <th>OP</th>
 
               </tr>
 
               {% for i in a %}
               <tr>
                   <td>{{i.patient_name}}</td>
-                  <td></td>
+
 
 
                   <td>{{i.description}}</td>
                   <td><a href="IP{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
-                  <td><a href="appoint_delete{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
+                  <td><a href="OP{{i.id}}"> <button style="background-color:red;margin-left:20px;"><i class="fa fa-times" ></i></button></a></td>
               </tr>
               {% endfor %}
 

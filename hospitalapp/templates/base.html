@@ -5,10 +5,16 @@
     <title> {% block title %}{% endblock %}</title>
     <script>{% block script %}{% endblock %}</script>
     {% load static %}
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-    <script src="{% static '/jquery/doctor_signup.js' %}" type="text/javascript">{% block script1 %}{% endblock %}</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{% static '/jquery/doctor_login.js' %}" type="text/javascript">{% block script3 %}{% endblock %}</script>
+    <script src="{% static '/jquery/patient_signup.js' %}" type="text/javascript">{% block script2 %}{% endblock %}</script>
+<script src="{% static '/jquery/patient_login.js' %}" type="text/javascript">{% block script4 %}{% endblock %}</script>
+<script src="{% static '/jquery/doctor_signup.js' %}" type="text/javascript">{% block script1 %}{% endblock %}</script>
+<script src="{% static '/jquery/admin_signup.js' %}" type="text/javascript">{% block script5 %}{% endblock %}</script>
+<script src="{% static '/jquery/admin_login.js' %}" type="text/javascript">{% block script6 %}{% endblock %}</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src=
 "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
 	</script>

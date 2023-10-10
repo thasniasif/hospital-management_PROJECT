@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% block title %}Doctor Login{% endblock %}
+{% block script4 %}{% endblock %}
 {% block style %}
 #hc{
 color:black;
@@ -30,18 +31,18 @@ margin-top:150px;
     <h4 id="hc"> Patient Login</h4>
     </div>
     <div class="container mt-4" style="margin-left:50px;">
-        <form method="POST">
+        <form method="POST" action="patient_login" id="my_form">
             {% csrf_token %}
 
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="User Name" id="uname" name="uname"><br>
+                <input type="text" placeholder="User Name" id="usernamepl" name="usernamepl"><br>
             </div>
             <div class="col">
-                 <input type="password" placeholder="Password" id="password" name="password">
+                 <input type="password" placeholder="Password" id="passwordpl" name="passwordpl">
             </div>
             <div class="row mt-4">
-                <button type="submit" class="btn btn-primary" style="width:100px;margin-left:250px;">Login</button>
+                <button type="submit" id="bt_plogin" class="btn btn-primary" style="width:100px;margin-left:250px;">Login</button>
 
             </div>
 

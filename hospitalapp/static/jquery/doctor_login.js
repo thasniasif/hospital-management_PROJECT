@@ -1,49 +1,46 @@
 $(document).ready(function(){
 $('#bt_login').click(() =>{
-var username=$("#username").val();
-  var password=$("#password").val();
+var usernamel=$("#usernamel").val();
+  var passwordl=$("#passwordl").val();
+  console.log(usernamel,passwordl)
   var data={
         'csrfmiddlewaretoken' : '{{csrf_token}}',
-        'username' : username,
-        'password' : password
+        'usernamel' : usernamel,
+        'passwordl' : passwordl
   }
-  if(username==''){
-  alert("enter valid username");
-  }
-  else if(password==''){
-  alert("enter valid password");
-  }
-  else{
-  alert("not authenticated");
-  console.log(username,password);
-//  $.ajax({
-//            url : 'login_val',
-//            method : 'POST',
-//            data : data,
-//
-//            success : function(data)
-//            {
-//                    if(data.exist){
-//                    alert("user logged in ");
-//
-//                    window.location.replace('doctor_login2')
-//                    }
-//                    else{
-//                    alert("user not authenticated ");
-//                    }
-//
-//            },
-//            error : function(data)
-//            {
-//                    alert("error");
-//            }
-//
-//  });
-  }
+
+  $.ajax({
+            url : 'login_val',
+            method : 'POST',
+            data : data,
+
+            success : function(data)
+            {
+                    if(data.exist){
+                    $('#errorl_span').html('');
+
+                    alert("Login Successfull!!! ");
+
+
+                    }
+                    else{
+                    alert('sorry user is not authenticated');
+//                     $('#errorl_span').html('sorry user is not authenticated');
+
+                    }
+
+            },
+            error : function(data)
+            {
+                    alert("error");
+            }
+
+  });
+  });
 
 });
 
-});
+
 
 
 

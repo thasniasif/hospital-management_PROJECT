@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}SIGNUP{% endblock %}
+{% load static %}
+{% block script5 %}{% endblock %}
+{% block script %}
+
+
+function validate(){
+
+    var pwd=document.getElementById("a_password").value;
+    var user=document.getElementById("a_uname").value;
+    var user_pat=/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/;
+    var pwd_pat=/(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[A-Z]).{4,}/;
+    if(pwd_pat.test(pwd)==false){
+        $('#pass_span').html('Password must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 digit 1spl char[!@#$%^&*]');
+<!--        alert("Password must contain  min 4 char, atleast   1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");-->
+        return false;
+        }
+    else if(user_pat.test(user)==false){
+        $('#error_span').html('username must contain  min 4 char, atleast 1 upper case, 1 lower case, 1 digit ');
+<!--        alert("Password must contain  min 4 char, atleast   1 upper case, 1 lower case, 1 disgit 1spl char[!@#$%^&*]");-->
+        return false;
+        }
+    else{
+    alert("Registered Successfully!!!")
+    return true;
+    }
+
+
+}
+
+{% endblock %}
+
 {% block style %}
 #hc{
 color:black;
@@ -29,22 +60,31 @@ margin-top:150px;
     <h4 id="hc">Add New Admin To Hospital</h4>
     </div>
     <div class="container mt-4" style="margin-left:50px;">
-        <form method="POST">
+        <form method="POST" onsubmit="return validate()">
             {% csrf_token %}
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="First Name" id="fname" name="fname"><br>
+                <input type="text" placeholder="First Name" id="fname" name="fname" autocomplete="off" required ><br>
             </div>
             <div class="col">
-                 <input type="text" placeholder="last Name" id="lname" name="lname">
+                 <input type="text" placeholder="last Name" id="lname" name="lname" autocomplete="off" required >
             </div>
          </div>
         <div class="row mt-3">
             <div class="col">
-                <input type="text" placeholder="User Name" id="uname" name="uname"><br>
+                <input type="text" placeholder="User Name" id="a_uname" name="a_uname" required autocomplete="off"><br>
             </div>
             <div class="col">
-                 <input type="password" placeholder="Password" id="password" name="password">
+                 <input type="password" placeholder="Password" id="a_password" name="a_password" required autocomplete="off">
+            </div>
+            <div class="row">
+                <div class="col">
+                <span id="error_span" style="color:red;"></span>
+                </div>
+                <div class="col">
+                <span id="pass_span" style="color:red;"></span>
+                </div>
+
             </div>
             <div class="row mt-4">
                 <button type="submit" class="btn btn-primary" style="width:100px;margin-left:250px;">Submit</button>

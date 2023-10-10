@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}SIGNUP{% endblock %}
 {% load static %}
+
+
+{% block script1 %}{% endblock %}
 {% block script %}
+
+
 function validate(){
 
     var pwd=document.getElementById("password").value;
@@ -19,7 +24,7 @@ function validate(){
         return false;
         }
     else{
-
+    alert("Registered Successfully!!!")
     return true;
     }
 
@@ -106,7 +111,7 @@ margin-top:130px;
             </div>
             <div class="col">
                 <label>Profile Picture</label>
-                 <input type="file"  id="file" name="file">
+                 <input type="file"  id="file" name="file" required>
             </div>
          </div>
             <div class="row mt-4">
